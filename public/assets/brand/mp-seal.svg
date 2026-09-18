@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#CCFF1A" stroke-width="1.5"/>
+  <text x="32" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#CCFF1A">MP</text>
+  <text x="32" y="46" text-anchor="middle" font-family="monospace" font-size="5" letter-spacing="1" fill="#CCFF1A">OFICIAL</text>
+</svg>
