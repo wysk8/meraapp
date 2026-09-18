@@ -54,10 +54,14 @@ export const PLATFORM_ICON = {
 
 export function MPMonogram({ size = 40, color = "#fff", opacity = 1 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 40 40" style={{ opacity }}>
+    <svg width={size} height={size} viewBox="0 0 42 40" style={{ opacity }}>
       <path d="M2 34V6h6l6 12 6-12h6v28h-6V18l-6 11-6-11v16z" fill={color} />
-      <rect x="30" y="6" width="8" height="28" fill="none" stroke={color} strokeWidth="2.4" />
-      <rect x="30" y="6" width="8" height="12" fill={color} />
+      <path
+        fillRule="evenodd"
+        fill={color}
+        d="M28 6L36 6Q41 6 41 12Q41 18 36 18L32 18L32 34L28 34Z
+           M32 10L32 14L36 14Q37 14 37 12Q37 10 36 10Z"
+      />
     </svg>
   );
 }

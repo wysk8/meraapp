@@ -10,11 +10,18 @@ import Ideas from "./pages/Ideas.jsx";
 import Stats from "./pages/Stats.jsx";
 import IA from "./pages/IA.jsx";
 import Perfil from "./pages/Perfil.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 import { useAuth } from "./hooks/useAuth.js";
 import { T } from "./lib/tokens.js";
 
 export default function App() {
   const { user, loading, authRequired } = useAuth();
+
+  // El link de recuperación de contraseña debe funcionar aunque la sesión
+  // todavía no esté completamente lista — se revisa antes que el resto.
+  if (window.location.pathname === "/reset-password") {
+    return <ResetPassword />;
+  }
 
   if (authRequired && loading) {
     return <div style={{ background: T.bg, minHeight: "100vh" }} />;

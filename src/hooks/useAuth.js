@@ -23,6 +23,8 @@ export function useAuth() {
   const signInWithPassword = (email, password) => supabase.auth.signInWithPassword({ email, password });
   const signUp = (email, password) => supabase.auth.signUp({ email, password });
   const signOut = () => supabase.auth.signOut();
+  const resetPassword = (email) => supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/reset-password` });
+  const updatePassword = (newPassword) => supabase.auth.updateUser({ password: newPassword });
 
-  return { user, loading, authRequired: supabaseEnabled, signInWithPassword, signUp, signOut };
+  return { user, loading, authRequired: supabaseEnabled, signInWithPassword, signUp, signOut, resetPassword, updatePassword };
 }
