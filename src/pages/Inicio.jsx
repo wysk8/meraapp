@@ -12,7 +12,6 @@ import { Rise, SectionHeader, QuickAddRow, PlatformBadge, Panel } from "../compo
 import { EditorialImage, BrandStamp, GraffitiMark, CodeLabel } from "../components/brand.jsx";
 import { anioActual } from "../lib/date.js";
 import ContentRow from "../components/ContentRow.jsx";
-import PendienteRow from "../components/PendienteRow.jsx";
 
 export default function Inicio() {
   const { focus } = useOutletContext();

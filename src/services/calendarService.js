@@ -21,6 +21,17 @@ export async function addEventQuick(title, userId) {
     return data;
   }
   const items = loadCollection(KEY, AGENDA_HOY_SEED);
-  saveCollection(KEY, [...items, item]);
-  return item;
+  const withId = { id: Date.now(), ...item };
+  saveCollection(KEY, [...items, withId]);
+  return withId;
+}
+
+export async function removeEvent(id) {
+  if (supabaseEnabled) {
+    const { error } = await supabase.from("calendar_events").delete().eq("id", id);
+    if (error) throw error;
+    return;
+  }
+  const items = loadCollection(KEY, AGENDA_HOY_SEED);
+  saveCollection(KEY, items.filter((it) => it.id !== id));
 }

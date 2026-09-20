@@ -1,11 +1,11 @@
-import { ChevronRight } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { CodeLabel, EditorialImage, GraffitiMark } from "../components/brand.jsx";
 import { T, CAT } from "../lib/tokens.js";
 import { useIdeas } from "../hooks/useIdeas.js";
 import { Rise, QuickAddRow } from "../components/ui.jsx";
 
 export default function Ideas() {
-  const { items: ideas, add } = useIdeas();
+  const { items: ideas, add, cyclePotential, remove } = useIdeas();
 
   return (
     <div className="flex flex-col gap-5">
@@ -25,12 +25,16 @@ export default function Ideas() {
       </div>
       <div className="flex flex-col gap-3">
         {ideas.map((idea, i) => (
-          <Rise i={i} key={idea.id} className="flex items-start gap-3 rounded-2xl px-3.5 py-3.5" style={{ background: "rgba(255,255,255,0.03)" }}>
+          <Rise i={i} key={idea.id} className="flex items-start gap-2 rounded-2xl px-3.5 py-3.5" style={{ background: "rgba(255,255,255,0.03)" }}>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium" style={{ color: T.text }}>{idea.title}</p>
-              <p className="text-xs mt-1" style={{ color: T.textFaint }}>{idea.platform} · {idea.format} · potencial {idea.potential}</p>
+              <button onClick={() => cyclePotential(idea.id)} className="text-xs mt-1" style={{ color: T.textFaint }} title="Tocar para cambiar el potencial">
+                {idea.platform} · {idea.format} · potencial <span style={{ color: CAT.ideas }}>{idea.potential}</span>
+              </button>
             </div>
-            <ChevronRight size={16} color={T.textFaint} className="shrink-0 mt-0.5" />
+            <button onClick={() => remove(idea.id)} title="Eliminar" className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 active:scale-90 transition-transform" style={{ background: "rgba(255,255,255,0.05)" }}>
+              <Trash2 size={11} color={T.textFaint} />
+            </button>
           </Rise>
         ))}
       </div>

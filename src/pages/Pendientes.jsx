@@ -6,7 +6,7 @@ import { Rise, QuickAddRow, EmptyState } from "../components/ui.jsx";
 import PendienteRow from "../components/PendienteRow.jsx";
 
 export default function Pendientes() {
-  const { items: pendientes, add } = useTasks();
+  const { items: pendientes, add, cycleLevel, remove } = useTasks();
   const [tab, setTab] = useState("hacer");
   const hacer = pendientes.filter((p) => p.must);
   const bueno = pendientes.filter((p) => !p.must);
@@ -29,7 +29,7 @@ export default function Pendientes() {
       </div>
 
       <div className="flex flex-col gap-2.5">
-        {list.map((p, i) => <Rise i={i} key={p.id}><PendienteRow item={p} /></Rise>)}
+        {list.map((p, i) => <Rise i={i} key={p.id}><PendienteRow item={p} onCycleLevel={cycleLevel} onDelete={remove} /></Rise>)}
         {list.length === 0 && <EmptyState text="Nada por aquí. Respira." />}
       </div>
     </div>

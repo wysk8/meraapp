@@ -1,12 +1,12 @@
+import { Trash2 } from "lucide-react";
 import { CodeLabel, EditorialImage, GraffitiMark } from "../components/brand.jsx";
 import { T, CAT } from "../lib/tokens.js";
 import { formatHoyLargo } from "../lib/date.js";
 import { useEvents } from "../hooks/useEvents.js";
-import { AGENDA_SEMANA } from "../data/seedData.js";
-import { Rise, SectionHeader, QuickAddRow } from "../components/ui.jsx";
+import { Rise, QuickAddRow, EmptyState } from "../components/ui.jsx";
 
 export default function Agenda() {
-  const { items: agendaHoy, add } = useEvents();
+  const { items: agendaHoy, add, remove } = useEvents();
 
   return (
     <div className="flex flex-col gap-6">
@@ -29,24 +29,16 @@ export default function Agenda() {
 
       <div className="flex flex-col gap-3.5">
         {agendaHoy.map((a, i) => (
-          <Rise i={i} key={i} className="flex items-center gap-3">
+          <Rise i={i} key={a.id} className="flex items-center gap-3">
             <span className="w-16 shrink-0 text-xs font-medium" style={{ color: T.textFaint }}>{a.time}</span>
             <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: a.type === "stream" ? T.green : a.type === "record" ? T.violet : T.textFaint }} />
-            <span className="text-sm" style={{ color: T.text }}>{a.title}</span>
+            <span className="text-sm flex-1 min-w-0" style={{ color: T.text }}>{a.title}</span>
+            <button onClick={() => remove(a.id)} title="Eliminar" className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 active:scale-90 transition-transform" style={{ background: "rgba(255,255,255,0.05)" }}>
+              <Trash2 size={11} color={T.textFaint} />
+            </button>
           </Rise>
         ))}
-      </div>
-
-      <div>
-        <SectionHeader title="LO QUE VIENE" color={CAT.agenda} />
-        <div className="flex flex-col gap-4">
-          {AGENDA_SEMANA.map((d) => (
-            <div key={d.day}>
-              <p className="text-xs font-semibold mb-1.5" style={{ color: T.textDim }}>{d.day}</p>
-              <div className="flex flex-col gap-1">{d.items.map((it, i) => <p key={i} className="text-sm" style={{ color: T.text }}>· {it}</p>)}</div>
-            </div>
-          ))}
-        </div>
+        {agendaHoy.length === 0 && <EmptyState text="Nada agendado para hoy todavía." />}
       </div>
     </div>
   );

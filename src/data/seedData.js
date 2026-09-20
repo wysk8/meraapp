@@ -28,12 +28,6 @@ export const AGENDA_HOY_SEED = [
   { time: "11:30 PM", title: "Descanso", type: "life" },
 ];
 
-export const AGENDA_SEMANA = [
-  { day: "Mañana", items: ["Grabación colaboración marca", "Editar Short #2"] },
-  { day: "Viernes", items: ["Stream: charla + comunidad · 8:00 PM"] },
-  { day: "Sábado", items: ["Publicar documental corto", "Día libre"] },
-];
-
 export const IDEAS_SEED = [
   { id: 1, title: "Stream de GTA con X invitado", platform: "Kick", format: "Stream", potential: "Alto" },
   { id: 2, title: "Reto 24h caminando por la calle", platform: "YouTube", format: "Video largo", potential: "Alto" },

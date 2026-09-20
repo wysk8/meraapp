@@ -26,6 +26,18 @@ export async function addIdeaQuick(title, userId) {
   return withId;
 }
 
+export async function updateIdea(id, patch) {
+  if (supabaseEnabled) {
+    const { data, error } = await supabase.from("ideas").update(patch).eq("id", id).select().single();
+    if (error) throw error;
+    return data;
+  }
+  const items = loadCollection(KEY, IDEAS_SEED);
+  const next = items.map((it) => (it.id === id ? { ...it, ...patch } : it));
+  saveCollection(KEY, next);
+  return next.find((it) => it.id === id);
+}
+
 export async function removeIdea(id) {
   if (supabaseEnabled) {
     const { error } = await supabase.from("ideas").delete().eq("id", id);

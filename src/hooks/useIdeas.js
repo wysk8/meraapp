@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { listIdeas, addIdeaQuick } from "../services/ideasService.js";
+import { listIdeas, addIdeaQuick, updateIdea, removeIdea } from "../services/ideasService.js";
 import { useAuth } from "./useAuth.js";
+
+const POTENCIALES = ["Por evaluar", "Bajo", "Medio", "Alto"];
 
 export function useIdeas() {
   const { user } = useAuth();
@@ -16,5 +18,20 @@ export function useIdeas() {
     setItems((prev) => [...prev, item]);
   };
 
-  return { items, add, loading };
+  // Toca el potencial para subirlo, sin abrir ningún formulario.
+  const cyclePotential = async (id) => {
+    const idea = items.find((it) => it.id === id);
+    if (!idea) return;
+    const idx = POTENCIALES.indexOf(idea.potential);
+    const potential = POTENCIALES[(idx + 1) % POTENCIALES.length];
+    await updateIdea(id, { potential });
+    setItems((prev) => prev.map((it) => (it.id === id ? { ...it, potential } : it)));
+  };
+
+  const remove = async (id) => {
+    await removeIdea(id);
+    setItems((prev) => prev.filter((it) => it.id !== id));
+  };
+
+  return { items, add, cyclePotential, remove, loading };
 }

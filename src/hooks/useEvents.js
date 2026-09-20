@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listEvents, addEventQuick } from "../services/calendarService.js";
+import { listEvents, addEventQuick, removeEvent } from "../services/calendarService.js";
 import { useAuth } from "./useAuth.js";
 
 export function useEvents() {
@@ -16,5 +16,10 @@ export function useEvents() {
     setItems((prev) => [...prev, item]);
   };
 
-  return { items, add, loading };
+  const remove = async (id) => {
+    await removeEvent(id);
+    setItems((prev) => prev.filter((it) => it.id !== id));
+  };
+
+  return { items, add, remove, loading };
 }
