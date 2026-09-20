@@ -1,6 +1,7 @@
 import { supabase, supabaseEnabled } from "../lib/supabaseClient.js";
 import { loadCollection, saveCollection } from "./store.js";
 import { CONTENT_ITEMS_SEED } from "../data/seedData.js";
+import { detectPlatform } from "../lib/detectPlatform.js";
 
 const KEY = "content";
 
@@ -13,10 +14,20 @@ export async function listContent() {
   return loadCollection(KEY, CONTENT_ITEMS_SEED);
 }
 
-// Captura rápida: solo título. El resto queda con valores por defecto,
-// tal como se validó en el prototipo — nada de formularios obligatorios.
-export async function addContentQuick(title, userId) {
-  const item = { title, platform: "Sin definir", stage: "IDEA", when_text: "Sin fecha", note: "" };
+// Captura rápida: si mencionas una plataforma (kick, youtube, tiktok,
+// instagram...) en cualquier parte de la frase, la reconoce sola —
+// "video de carreras kick" queda en Kick con título "video de carreras".
+// Si no menciona ninguna, el texto completo es el título y la
+// plataforma queda "Sin definir".
+export async function addContentQuick(text, userId) {
+  const detected = detectPlatform(text, "contenido");
+  const item = {
+    title: detected ? detected.title : text,
+    platform: detected ? detected.platform : "Sin definir",
+    stage: "IDEA",
+    when_text: "Sin fecha",
+    note: "",
+  };
   if (supabaseEnabled) {
     const { data, error } = await supabase.from("content").insert({ ...item, user_id: userId }).select().single();
     if (error) throw error;

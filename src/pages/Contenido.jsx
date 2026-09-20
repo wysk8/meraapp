@@ -28,7 +28,7 @@ export default function Contenido() {
         <p className="text-sm mt-0.5" style={{ color: T.textDim }}>Qué está pasando con cada pieza, de idea a publicado.</p>
       </div>
 
-      <QuickAddRow onAdd={add} color={CAT.contenido} prefix="CONTENIDO://" placeholder="título de la pieza... o dilo en voz alta" caption="entra como idea — defines plataforma y estado después." />
+      <QuickAddRow onAdd={add} color={CAT.contenido} prefix="CONTENIDO://" placeholder="ej: video de carreras kick... o dilo en voz alta" caption="menciona la plataforma (kick, youtube, tiktok...) y la reconoce sola." />
 
       <div className="flex gap-2 overflow-x-auto pb-1">
         {platforms.map((p) => (

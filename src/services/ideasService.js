@@ -1,6 +1,7 @@
 import { supabase, supabaseEnabled } from "../lib/supabaseClient.js";
 import { loadCollection, saveCollection } from "./store.js";
 import { IDEAS_SEED } from "../data/seedData.js";
+import { detectPlatform } from "../lib/detectPlatform.js";
 
 const KEY = "ideas";
 
@@ -13,8 +14,14 @@ export async function listIdeas() {
   return loadCollection(KEY, IDEAS_SEED);
 }
 
-export async function addIdeaQuick(title, userId) {
-  const item = { title, platform: "Sin definir", format: "Sin definir", potential: "Por evaluar" };
+export async function addIdeaQuick(text, userId) {
+  const detected = detectPlatform(text, "texto");
+  const item = {
+    title: detected ? detected.title : text,
+    platform: detected ? detected.platform : "Sin definir",
+    format: "Sin definir",
+    potential: "Por evaluar",
+  };
   if (supabaseEnabled) {
     const { data, error } = await supabase.from("ideas").insert({ ...item, user_id: userId }).select().single();
     if (error) throw error;
