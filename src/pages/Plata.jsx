@@ -51,6 +51,9 @@ export default function Plata() {
                 <span style={{ color: T.textDim, fontFamily: T.mono }}>${g.amount.toLocaleString("es-CO")}</span>
               </div>
             ))}
+            {gastosHormiga.length > 5 && (
+              <p className="text-[11px] text-center mt-1" style={{ color: T.textFaint, fontFamily: T.mono }}>+{gastosHormiga.length - 5} más este mes (ya están sumados arriba)</p>
+            )}
           </div>
         )}
       </Panel>
@@ -74,7 +77,11 @@ export default function Plata() {
 
       <div className="grid grid-cols-2 gap-4">
         <div><p className="text-xs" style={{ color: T.textFaint }}>Gastos del mes</p><p className="text-lg font-bold mt-1" style={{ color: T.red }}>${totalGastos.toLocaleString("es-CO")}</p></div>
-        <div><p className="text-xs" style={{ color: T.textFaint }}>Disponible</p><p className="text-lg font-bold mt-1" style={{ color: disponible >= 0 ? T.green : T.red }}>${disponible.toLocaleString("es-CO")}</p></div>
+        <div>
+          <p className="text-xs" style={{ color: T.textFaint }}>Disponible</p>
+          <p className="text-lg font-bold mt-1" style={{ color: disponible >= 0 ? T.green : T.red }}>${disponible.toLocaleString("es-CO")}</p>
+          <p className="text-[10px] mt-0.5" style={{ color: T.textFaint, fontFamily: T.mono }}>ingresos (${totalIngresos.toLocaleString("es-CO")}) − gastos del mes (${totalGastos.toLocaleString("es-CO")})</p>
+        </div>
       </div>
 
       <div>

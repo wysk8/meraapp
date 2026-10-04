@@ -11,8 +11,19 @@ export function useFinances() {
     listFinances().then((data) => { setItems(data); setLoading(false); });
   }, []);
 
-  const ingresos = items.filter((f) => f.type === "ingreso");
-  const gastos = items.filter((f) => f.type === "gasto");
+  // "Disponible" y los totales son del MES ACTUAL, no de todo lo que has
+  // registrado alguna vez — si no, "Disponible" nunca refleja tu plata real
+  // de ahora. Un ítem sin fecha (dato de ejemplo viejo) no se oculta.
+  const now = new Date();
+  const esDelMesActual = (dateStr) => {
+    if (!dateStr) return true;
+    const d = new Date(dateStr);
+    return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+  };
+  const itemsDelMes = items.filter((f) => esDelMesActual(f.date));
+
+  const ingresos = itemsDelMes.filter((f) => f.type === "ingreso");
+  const gastos = itemsDelMes.filter((f) => f.type === "gasto");
   const gastosHormiga = gastos.filter((g) => g.category === "hormiga");
   const gastosOtros = gastos.filter((g) => g.category !== "hormiga");
   const totalIngresos = ingresos.reduce((a, f) => a + f.amount, 0);

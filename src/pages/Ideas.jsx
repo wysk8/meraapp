@@ -28,8 +28,9 @@ export default function Ideas() {
           <Rise i={i} key={idea.id} className="flex items-start gap-2 rounded-2xl px-3.5 py-3.5" style={{ background: "rgba(255,255,255,0.03)" }}>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium" style={{ color: T.text }}>{idea.title}</p>
-              <button onClick={() => cyclePotential(idea.id)} className="text-xs mt-1" style={{ color: T.textFaint }} title="Tocar para cambiar el potencial">
-                {idea.platform} · {idea.format} · potencial <span style={{ color: CAT.ideas }}>{idea.potential}</span>
+              <p className="text-xs mt-1" style={{ color: T.textFaint }}>{idea.platform} · {idea.format}</p>
+              <button onClick={() => cyclePotential(idea.id)} title="Tocar para cambiar el potencial" className="inline-flex items-center gap-1 mt-1.5 px-2 py-1 rounded-full active:scale-95 transition-transform" style={{ background: CAT.ideas, color: "#1A1600" }}>
+                <span className="text-[10px] font-bold" style={{ fontFamily: T.mono }}>POTENCIAL: {idea.potential.toUpperCase()}</span>
               </button>
             </div>
             <button onClick={() => remove(idea.id)} title="Eliminar" className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 active:scale-90 transition-transform" style={{ background: "rgba(255,255,255,0.05)" }}>

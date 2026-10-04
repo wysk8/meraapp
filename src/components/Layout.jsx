@@ -19,7 +19,7 @@ export default function Layout() {
   const { items: contentItems } = useContentItems();
 
   const notifications = [
-    ...pendientes.filter((p) => p.must).map((p) => ({ id: `p-${p.id}`, text: `Pendiente urgente: ${p.title}`, color: CAT.alerta, to: "/pendientes" })),
+    ...pendientes.filter((p) => p.must && !p.completed).map((p) => ({ id: `p-${p.id}`, text: `Pendiente urgente: ${p.title}`, color: CAT.alerta, to: "/pendientes" })),
     ...contentItems.filter((c) => c.stage === "REVISION").map((c) => ({ id: `c-${c.id}`, text: `En revisión: ${c.title}`, color: CAT.contenido, to: "/contenido" })),
   ];
 

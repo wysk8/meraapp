@@ -55,7 +55,7 @@ export default function Contenido() {
         <EditorialImage src="/assets/photos/gaming.jpg" alt="Sesión de streaming gaming" height={110} />
         <div className="absolute inset-0 rounded-sm pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(5,5,5,0.85), rgba(5,5,5,0.15) 60%)" }} />
         <div className="absolute top-1/2 left-4" style={{ transform: "translateY(-50%)" }}>
-          <Sticker label="Kick · Live" color={T.green} size="md" />
+          <Sticker label={filter === "Todos" ? "Streams & Clips" : filter} color={T.green} size="md" />
         </div>
       </div>
 
@@ -66,7 +66,9 @@ export default function Contenido() {
             {c.note && <p className="text-xs mt-1.5 ml-[68px]" style={{ color: T.textFaint }}>{c.note}</p>}
           </Rise>
         ))}
-        {items.length === 0 && <EmptyState text="No hay contenido en esta plataforma todavía." />}
+        {items.length === 0 && (
+          <EmptyState text={filter === "Todos" ? "Aún no tienes contenido. Anota tu primera pieza arriba." : `No hay contenido en ${filter} todavía.`} />
+        )}
       </div>
     </div>
   );

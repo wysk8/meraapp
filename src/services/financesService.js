@@ -45,7 +45,7 @@ async function addQuick(text, type, category, userId) {
     return normalize(data);
   }
   const items = loadCollection(KEY, FINANCES_SEED);
-  const withId = { id: Date.now(), type, category, desc: parsed.desc, amount: parsed.amount };
+  const withId = { id: Date.now(), type, category, desc: parsed.desc, amount: parsed.amount, date: new Date().toISOString().slice(0, 10) };
   saveCollection(KEY, [...items, withId]);
   return withId;
 }

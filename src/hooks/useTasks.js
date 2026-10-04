@@ -34,5 +34,14 @@ export function useTasks() {
     setItems((prev) => prev.filter((it) => it.id !== id));
   };
 
-  return { items, add, cycleLevel, remove, loading };
+  // Completar ≠ borrar. La tarea se queda, solo cambia de estado.
+  const toggleComplete = async (id) => {
+    const task = items.find((it) => it.id === id);
+    if (!task) return;
+    const completed = !task.completed;
+    await updateTask(id, { completed });
+    setItems((prev) => prev.map((it) => (it.id === id ? { ...it, completed } : it)));
+  };
+
+  return { items, add, cycleLevel, remove, toggleComplete, loading };
 }

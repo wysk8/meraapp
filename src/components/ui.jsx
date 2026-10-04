@@ -77,14 +77,17 @@ export function Thumb({ id = 1, platform, size = 56 }) {
   );
 }
 
-export function RowMenu({ onAdvance, onDelete }) {
+export function RowMenu({ onAdvance, onDelete, color = CAT.contenido }) {
   return (
-    <div className="flex items-center gap-1.5 shrink-0">
+    <div className="flex items-center gap-2 shrink-0">
       {onAdvance && (
-        <button onClick={onAdvance} title="Avanzar al siguiente estado" className="w-6 h-6 rounded-full flex items-center justify-center active:scale-90 transition-transform" style={{ background: "rgba(255,255,255,0.05)" }}><ArrowRight size={11} color={T.textFaint} /></button>
+        <button onClick={onAdvance} title="Avanzar al siguiente estado" className="h-7 pl-2.5 pr-3 rounded-full flex items-center gap-1 active:scale-90 transition-transform" style={{ background: color }}>
+          <ArrowRight size={12} color="#04220F" strokeWidth={2.5} />
+          <span className="text-[10px] font-bold" style={{ color: "#04220F", fontFamily: T.mono }}>SIGUIENTE</span>
+        </button>
       )}
       {onDelete && (
-        <button onClick={onDelete} title="Eliminar" className="w-6 h-6 rounded-full flex items-center justify-center active:scale-90 transition-transform" style={{ background: "rgba(255,255,255,0.05)" }}><Trash2 size={11} color={T.textFaint} /></button>
+        <button onClick={onDelete} title="Eliminar" className="w-6 h-6 rounded-full flex items-center justify-center active:scale-90 transition-transform shrink-0" style={{ background: "rgba(255,255,255,0.05)" }}><Trash2 size={11} color={T.textFaint} /></button>
       )}
     </div>
   );

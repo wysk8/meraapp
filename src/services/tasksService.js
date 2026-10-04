@@ -14,7 +14,7 @@ export async function listTasks() {
 }
 
 export async function addTaskQuick(title, userId) {
-  const item = { title, tag: "General", level: "normal", must: false, when_text: "Hoy" };
+  const item = { title, tag: "General", level: "normal", must: false, when_text: "Hoy", completed: false };
   if (supabaseEnabled) {
     const { data, error } = await supabase.from("tasks").insert({ ...item, user_id: userId }).select().single();
     if (error) throw error;
