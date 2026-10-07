@@ -26,7 +26,7 @@ export default function Inicio() {
   const { items: statsReales } = usePlatformStats();
 
   const disponible = useCountUp(disponibleReal);
-  const ultimaStat = statsReales[statsReales.length - 1];
+  const ultimaStat = statsReales && statsReales.length > 0 ? statsReales[statsReales.length - 1] : null;
 
   const urgentes = pendientes.filter((p) => p.must && !p.completed);
   const hoyContenido = contentItems.filter((c) => (c.when_text || "").toLowerCase().includes("hoy"));

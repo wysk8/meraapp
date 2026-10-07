@@ -22,5 +22,5 @@ export function usePlatformStats() {
     setItems((prev) => [...prev.filter((it) => it.platform !== parsed.platform), entry]);
   };
 
-  return { byPlatform, update, loading };
+  return { items, byPlatform, update, loading };
 }
